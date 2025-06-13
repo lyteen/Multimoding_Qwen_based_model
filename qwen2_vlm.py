@@ -46,7 +46,7 @@ text = processor.apply_chat_template(
     messages, tokenize=False, add_generation_prompt=True
 )
 image_inputs, video_inputs = process_vision_info(messages)
-logger.info(f"image_input: {image_inputs}")
+logger.info(f"image_input_shape:: {image_inputs['input_features'].shape}")
 
 inputs = processor(
     text=[text],
@@ -64,6 +64,11 @@ inputs = inputs.to(model.device)
 # generated_ids_trimmed = [
 #     out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
 # ]
+
+"""
+    Thinking: ? out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids) ?
+"""
+
 # output_text = processor.batch_decode(
 #     generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
 # )
